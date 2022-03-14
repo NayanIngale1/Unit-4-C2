@@ -14,10 +14,22 @@ app.get("/", async (req, res) => {
         select: ["firstName", "lastName"],
       })
       .lean()
-      .exec();
+          .exec();
+      
+      return res.status(200).send(masterAccounts);
   } catch (error) {
     return res.status(500).send({ Error: error.message });
   }
 });
+
+
+app.get('/:id/userId', async (req, res) => {
+    try {
+        const details = await MasterAccount.findById({ userId: req.params.userId },{_id:1,balance:1}).lean().exec();
+        return res.status(200).send(details);
+    } catch (error) {
+        return res.status(500).send({ Error: error.message });
+    }
+}])
 
 module.exports = app;
