@@ -1,10 +1,10 @@
 const express = require("express");
 
-const router = express.Router();
+const app = express();
 
 const MasterAccount = require("../modules/masterAccount.module");
 
-router.get("/", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const masterAccounts = await MasterAccount.find({})
       .permute({ path: "branchId", select: ["name"] })
@@ -19,3 +19,5 @@ router.get("/", async (req, res) => {
     return res.status(500).send({ Error: error.message });
   }
 });
+
+module.exports = app;
