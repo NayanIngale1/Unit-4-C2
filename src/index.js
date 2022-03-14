@@ -8,6 +8,10 @@ const connect = () => {
   );
 };
 
+const masterAccountControllers = require("./controllers/masterAccount.controllers");
+
+app.use("/masterAccounts", masterAccountControllers);
+
 app.listen(5000, async () => {
   try {
     await connect();
